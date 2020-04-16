@@ -28,6 +28,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include "QrCode.hpp"
@@ -48,9 +49,10 @@ static void printQr(const QrCode &qr);
 // The main application program.
 int main() {
 	doBasicDemo();
-	doVarietyDemo();
-	doSegmentDemo();
-	doMaskDemo();
+	system("pause");
+	//doVarietyDemo();
+	//doSegmentDemo();
+	//doMaskDemo();
 	return EXIT_SUCCESS;
 }
 
@@ -60,13 +62,19 @@ int main() {
 
 // Creates a single QR Code, then prints it to the console.
 static void doBasicDemo() {
-	const char *text = "Hello, world!";              // User-supplied text
+	const char *text = "Kirill Kudymov";              // User-supplied text
 	const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // Error correction level
 	
 	// Make and print the QR Code symbol
 	const QrCode qr = QrCode::encodeText(text, errCorLvl);
 	printQr(qr);
-	std::cout << qr.toSvgString(4) << std::endl;
+	std::ofstream out;
+	out.open("kKudymov.svg");
+	if (out.is_open())
+	{
+       out << qr.toSvgString(4) << std::endl;
+	}
+	
 }
 
 
